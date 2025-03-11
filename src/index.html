@@ -9,21 +9,16 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {}
       }
     }
   </script>
-  <style>
-    h1 {
-        font-size: 2.25rem;  /* text-4xl */
-        font-weight: 500;    /* font-medium */
-        line-height: 1;      /* leading-none */
-        letter-spacing: -0.025em; /* tracking-tighter */
-        margin: 0;           /* m-0 */
-        font-family: ui-monospace, monospace; /* font-mono */
-        color: #000000;
+  <style type="text/tailwindcss">
+    @layer base {
+      h1 {
+        @apply text-4xl font-medium leading-none tracking-tighter m-0 font-mono text-black;
+      }
     }
   </style>
 </head>
