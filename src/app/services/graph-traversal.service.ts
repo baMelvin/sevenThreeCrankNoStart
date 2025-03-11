@@ -24,7 +24,10 @@ export class GraphTraversalService {
   constructor(private http: HttpClient) {}
 
   loadGraph(): Observable<GraphData> {
-    return this.http.get<GraphData>('assets/sevenThreeDiagnosis.json');
+    let assets = this.http.get<GraphData>('/assets/sevenThreeDiagnonsis.json');
+    console.log("assets: ", assets);
+    
+    return assets;
   }
 
   startTraversal(graph: GraphData): GraphNode {

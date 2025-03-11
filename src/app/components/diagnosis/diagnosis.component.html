@@ -1,2 +1,13 @@
 <h1 class="">99-03 Powerstroke 7.3 crank no start diagnosis</h1>
 
+<div>
+    <p>{{ question }}</p>
+    <div *ngIf="isFinal">
+        <p>This is a final diagnosis</p>
+        <button (click)="restart()">Start Over</button>
+    </div>
+    <section *ngIf="!isFinal" class="yes-no-buttons">
+      <button (click)="move('yes')">Yes</button>
+      <button (click)="move('no')">No</button>
+    </section>
+</div>
