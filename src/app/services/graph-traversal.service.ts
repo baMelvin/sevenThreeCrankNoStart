@@ -14,6 +14,12 @@ interface GraphData {
   nodes: GraphNode[];
 }
 
+export interface SavedDiagnosis {
+  question: string;
+  notes: string;
+  timestamp: Date;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +27,12 @@ export class GraphTraversalService {
   private graph: GraphData | null = null;
   private currentNode: GraphNode | null = null;
   private notesSubject = new BehaviorSubject<string>('');
+  private currentQuestionSubject = new BehaviorSubject<string>('');
+  private savedDiagnosesSubject = new BehaviorSubject<SavedDiagnosis[]>([]);
+
   notes$ = this.notesSubject.asObservable();
+  currentQuestion$ = this.currentQuestionSubject.asObservable();
+  savedDiagnoses$ = this.savedDiagnosesSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -34,6 +45,9 @@ export class GraphTraversalService {
   startTraversal(graph: GraphData): GraphNode {
     this.graph = graph;
     this.currentNode = graph.nodes.find(node => node.id === 'start') || null;
+    if (this.currentNode) {
+      this.currentQuestionSubject.next(this.currentNode.question);
+    }
     return this.currentNode!;
   }
 
@@ -48,6 +62,9 @@ export class GraphTraversalService {
     if (!nextId) return null;
 
     this.currentNode = this.graph.nodes.find(node => node.id === nextId) || null;
+    if (this.currentNode) {
+      this.currentQuestionSubject.next(this.currentNode.question);
+    }
     return this.currentNode;
   }
 
@@ -57,5 +74,15 @@ export class GraphTraversalService {
 
   getCurrentNotes(): Observable<string> {
     return this.notes$;
+  }
+
+  saveDiagnosis() {
+    const savedDiagnoses = this.savedDiagnosesSubject.value;
+    const newDiagnosis: SavedDiagnosis = {
+      question: this.currentQuestionSubject.value,
+      notes: this.notesSubject.value,
+      timestamp: new Date()
+    };
+    this.savedDiagnosesSubject.next([...savedDiagnoses, newDiagnosis]);
   }
 }

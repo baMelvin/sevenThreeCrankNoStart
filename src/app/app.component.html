@@ -185,17 +185,36 @@
             </svg>
           </a>
         }
+        <section class="space-y-4">
+          <app-card>
+            <div class="flex flex-col gap-2">
+              <h2 class="text-lg font-semibold">Diagnostic Notes</h2>
+              <textarea 
+                class="border rounded-md p-2 w-full" 
+                [ngModel]="notes" 
+                (ngModelChange)="updateNotes($event)">
+              </textarea>
+            </div>
+          </app-card>
+        </section>
+      </div>
+
+      <section class="space-y-4" *ngIf="savedDiagnoses$ | async as savedDiagnoses">
         <app-card>
-          <div class="flex flex-col gap-2">
-            <h2 class="text-lg font-semibold">Diagnostic Notes</h2>
-            <textarea 
-              class="border rounded-md p-2 w-full" 
-              [ngModel]="notes" 
-              (ngModelChange)="updateNotes($event)">
-            </textarea>
+          <div class="flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">Saved Diagnoses</h2>
+            @for (diagnosis of savedDiagnoses; track diagnosis.timestamp) {
+              <div class="border-b pb-4">
+                <p class="font-medium">Diagnosis: {{ diagnosis.question }}</p>
+                <p class="text-gray-600 mt-2">Notes: {{ diagnosis.notes }}</p>
+                <p class="text-sm text-gray-400 mt-1">
+                  {{ diagnosis.timestamp | date:'medium' }}
+                </p>
+              </div>
+            }
           </div>
         </app-card>
-      </div>
+      </section>
     </div>
   </div>
 </main>

@@ -55,6 +55,9 @@ export class DiagnosisComponent implements OnInit {
     this.graphService.updateNotes(this.notes);
   }
   
+  saveDiagnosis() {
+    this.graphService.saveDiagnosis();
+  }
 
   ngOnDestroy(): void {
     // Prevent memory leaks by unsubscribing
