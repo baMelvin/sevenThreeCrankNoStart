@@ -4,10 +4,11 @@
     <p>{{ question }}</p>
     <div *ngIf="isFinal">
         <p>This is a final diagnosis</p>
-        <button (click)="restart()">Start Over</button>
+        
     </div>
     <section *ngIf="!isFinal" class="yes-no-buttons">
       <button (click)="move('yes')">Yes</button>
       <button (click)="move('no')">No</button>
     </section>
+    <button (click)="restart()">Start Over</button>
 </div>
