@@ -1,0 +1,100 @@
+@startuml sevenThreeDiagnosis.puml
+start
+if (Does the 'Wait to Start' light illuminate?) then (Yes)
+    :PCM;
+    if (Is there a loose chip or programmer on PCM?) then (Yes)
+        :Remove chip;
+        stop
+    else (No)
+        :Fuse 22;
+        if (Check fuse 22 under the hood. Is it good?) then (Yes)
+            :Red wire;
+            if (Check red wire at PCM. Does it have 12V power?) then (Yes)
+                :Test PCM diode;
+                if (Is the PCM diode good?) then (Yes)
+                    :Replace PCM;
+                    stop
+                else (No)
+                    :Replace PCM diode;
+                    stop
+                endif
+            else (No)
+                :Replace PCM relay;
+                stop
+            endif
+        else (No)
+            :Replace fuse 22;
+            stop
+        endif
+    endif
+else (No)
+    :Tachometer;
+    if (Does tachometer move while cranking?) then (Yes)
+        :Cranking Speed;
+        if (Is the cranking speed at least 200 RPM?) then (Yes)
+            :Smoke while cranking;
+            if (Is there smoke while cranking?) then (Yes)
+                :Glow Plug Relay;
+                stop
+            else (No)
+                :Crankcase full;
+                if (Is the crankcase full of oil?) then (Yes)
+                    :Fuel in fuel bowl;
+                    if (Is there fuel in the fuel bowl?) then (Yes)
+                        :Fuel Pressure at Regulator;
+                        if (Test the fuel pressure at the regulator. Is it greater than 20 PSI?) then (Yes)
+                            :Check HPOP;
+                            if (Check the HPOP pressure. Is it at least 500 PSI?) then (Yes)
+                                :Bad IDM, PCM, Wiring;
+                                stop
+                            else (No)
+                                :Check IPR Nut;
+                                if (Is the tin nut on the IPR present and tight?) then (Yes)
+                                    :Bad HPOP, IPR;
+                                    stop
+                                else (No)
+                                    :Tighten IPR Nut;
+                                    stop
+                                endif
+                            endif
+                        else (No)
+                            :Clean FPR Screen;
+                            stop
+                        endif
+                    else (No)
+                        :Multiple Tanks;
+                        if (Does the vehicle have multiple tanks?) then (Yes)
+                            :Single Tank Fuel Diagnosis;
+                            stop
+                        else (No)
+                            :Symptoms same on both tanks;
+                            if (Are the symptoms the same on both tanks?) then (Yes)
+                                :Clean FPR Screen;
+                                stop
+                            else (No)
+                                :Fuel Line Selector Issues;
+                                stop
+                            endif
+                        endif
+                    endif
+                else (No)
+                    :Add Oil;
+                    stop
+                endif
+            endif
+        else (No)
+            :Battery Test;
+            if (Load test the batteries individually. Is the voltage at least 10.5V?) then (Yes)
+                :Starter;
+                stop
+            else (No)
+                :Batteries;
+                stop
+            endif
+        endif
+    else (No)
+        :Bad CPS Wiring;
+        stop
+    endif
+endif
+@enduml
