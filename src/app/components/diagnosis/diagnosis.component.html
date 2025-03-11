@@ -22,15 +22,32 @@
           
         </section>
         <section>
+          <div *ngIf="isFinal">
+              <p class="text-sm">This is a final diagnosis.</p>
+              <section>
+                <app-card>
+                  <div class="flex flex-col gap-2">
+                    <h2 class="text-lg font-semibold">Diagnostic Notes</h2>
+                    <textarea 
+                      class="border rounded-md p-2 w-full" 
+                      [(ngModel)]="notes"
+                      (input)="updateNotes()">
+                    </textarea>
+                  </div>
+                </app-card>
+              </section>
+          </div>
+        
+        </section>
+        <section>
           <button 
               (click)="restart()" 
-              class="bg-blue-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg text-xl transition-colors duration-200">
-              <div *ngIf="isFinal">
-                  <p class="text-sm">This is a final diagnosis.</p>
-              </div>
+              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-xl transition-colors duration-200">
+
               Start Over
           </button>
         </section>
+
     </div>
 
 </app-card>
