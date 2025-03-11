@@ -1,0 +1,20 @@
+@startuml pumlFromJson.puml
+!includejson sevenThreeDiagnosis.json as data
+
+start
+if (data.start.question) then (Yes)
+    :data.pcm.question;
+    if (data.pcm.question) then (Yes)
+        :data.remove_chip.final;
+        stop
+    else (No)
+        :data.fuse_22.question;
+        if (data.fuse_22.question) then (Yes)
+            :data.red_wire.question;
+        else (No)
+            :data.replace_fuse.final;
+            stop
+        endif
+    endif
+endif
+@enduml
