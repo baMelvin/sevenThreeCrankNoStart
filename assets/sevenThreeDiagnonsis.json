@@ -1,0 +1,38 @@
+{
+    "nodes": [
+      { "id": "start", "question": "Does the 'Wait to Start' light illuminate?", "yes": "pcm", "no": "tach" },
+      { "id": "pcm", "question": "Is there a loose chip or programmer on PCM?", "yes": "remove_chip", "no": "fuse_22" },
+      { "id": "remove_chip", "question": "Remove chip or programmer (restore to stock) and attempt to start.", "final": true },
+      { "id": "fuse_22", "question": "Check fuse 22 under the hood. Is it good?", "yes": "red_wire", "no": "replace_fuse" },
+      { "id": "replace_fuse", "question": "Disconnect fuel bowl heater and replace fuse 22.", "final": true },
+      { "id": "red_wire", "question": "Check red wire at PCM. Does it have 12V power?", "yes": "test_pcm_diode", "no": "replace_pcm_relay" },
+      { "id": "test_pcm_diode", "question": "Is the PCM diode good?", "yes": "replace_pcm", "no": "replace_pcm_diode" },
+      { "id": "replace_pcm", "question": "Replace PCM with a known good unit and test again.", "final": true },
+      { "id": "replace_pcm_diode", "question": "Replace PCM diode.", "final": true },
+      { "id": "tach", "question": "Does tachometer move while cranking?", "yes": "cranking_speed", "no": "bad_cps_wiring" },
+      { "id": "cranking_speed", "question": "Is the cranking speed at least 200 RPM?", "yes": "smoke_while_cranking", "no": "battery_test" },
+      { "id": "smoke_while_cranking", "question": "Is there smoke while cranking?", "yes": "glow_plug_relay", "no": "crank_case_full" },
+      { "id": "crank_case_full", "question": "Is the crankcase full of oil?", "yes": "fuel_in_fuel_bowl", "no": "add_oil" },
+      { "id": "add_oil", "question": "Add oil to the correct level.", "final": true },
+      { "id": "fuel_in_fuel_bowl", "question": "Is there fuel in the fuel bowl?", "yes": "fuel_pressure_at_regulator", "no": "multiple_tanks_1" },
+      { "id": "fuel_pressure_at_regulator", "question": "Test the fuel pressure at the regulator on the fuel bowl. Is it greater than 20 PSI?", "yes": "check_hpop", "no": "clean_fpr_screen" },
+      { "id": "check_hpop", "question": "Check the HPOP pressure using a scanner and Forscan or a mechanical gauge. Is the pressure at least 500 PSI?", "yes": "bad_idm_pcm_wiring", "no": "check_ipr_nut" },
+      { "id": "bad_idm_pcm_wiring", "question": "Possible failure: Bad IDM, PCM, or wiring.", "final": true },
+      { "id": "check_ipr_nut", "question": "Is the tin nut on the IPR present and tight?", "yes": "bad_hpop_ipr", "no": "tighten_ipr_nut" },
+      { "id": "tighten_ipr_nut", "question": "Tighten tin nut and try again. Consider putting some silicone or Loctite on the threads so it doesn't come loose as easily.", "final": true },
+      { "id": "bad_hpop_ipr", "question": "Possible failure: Bad HPOP, IPR O-rings, IPR wiring, or IPR. There is a bench test for the IPR. Test IPR and wiring.", "final": true },
+      { "id": "multiple_tanks_1", "question": "Does the vehicle have multiple tanks?", "yes": "single_tank_fuel_diagnosis", "no": "same_symptoms_both_tanks" },
+      { "id": "same_symptoms_both_tanks", "question": "Are the symptoms the same on both tanks?", "yes": "clean_fpr_screen", "no": "fuel_line_selector_issues" },
+      { "id": "clean_fpr_screen", "question": "Clean the FPR screen. If the screen is clean, replace the fuel pump." },
+      { "id": "single_tank_fuel_diagnosis", "question": "For a single tank: Clean the FPR screen first. If it's clean, check for possible fuel line issues (clogged fuel line, bad selector valve, switch, or empty tank)." },
+      { "id": "fuel_line_selector_issues", "question": "Possible issues: clogged fuel line, bad selector valve or switch, empty tank, etc." },
+      { "id": "bad_cps_wiring", "question": "Test CPS wiring harness. Replace CPS with a Ford or International part.", "final": true },
+      { "id": "glow_plug_relay", "question": "Test the glow plug relay with a test light. Does it have voltage on both large terminals with the key in the 'run' position?", "yes": "uvcwh_test", "no": "replace_gpr" },
+      { "id": "replace_gpr", "question": "Replace GPR. Consider NAPA GPR 109 or Stancor.", "final": true },
+      { "id": "uvcwh_test", "question": "Check UVCWHs for burned pins. Ohm test glow plugs and injectors." },
+      { "id": "battery_test", "question": "Load test the batteries individually. Is the battery voltage on both batteries at least 10.5 volts?", "yes": "starter", "no": "batteries" },
+      { "id": "starter", "question": "Replace starter, preferably with a '3 bolt starter' or a Denso.", "final": true },
+      { "id": "batteries", "question": "Trickle charge batteries individually overnight. Load test batteries again. If batteries test bad again, replace batteries (in pairs).", "final": true }
+    ]
+  }
+  
