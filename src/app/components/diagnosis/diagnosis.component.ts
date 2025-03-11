@@ -4,11 +4,12 @@ import { GraphTraversalService } from '../../services/graph-traversal.service';
 import { CardComponent } from '../card/card.component';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { DiagnosticStepFormatPipe } from '../../diagnostic-step-format.pipe';
 
 @Component({
   selector: 'app-diagnosis',
   standalone: true,
-  imports: [CommonModule, CardComponent, FormsModule],
+  imports: [CommonModule, CardComponent, FormsModule, DiagnosticStepFormatPipe],
   templateUrl: './diagnosis.component.html',
   styleUrl: './diagnosis.component.scss'
 })
@@ -16,6 +17,7 @@ export class DiagnosisComponent implements OnInit {
   question: string = '';
   isFinal: boolean = false;
   notes: string = '';
+  currentStep: number = 1;
 
   private notesSubscription!: Subscription;
 
@@ -60,7 +62,6 @@ export class DiagnosisComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    // Prevent memory leaks by unsubscribing
     if (this.notesSubscription) {
       this.notesSubscription.unsubscribe();
     }
