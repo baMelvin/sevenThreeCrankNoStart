@@ -1,18 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { GraphTraversalService } from './services/graph-traversal.service';
+import { DiagnosisComponent } from './components/diagnosis/diagnosis.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, HttpClientModule],
+  imports: [
+    RouterOutlet, 
+    CommonModule, 
+    HttpClientModule,
+    DiagnosisComponent
+  ],
   providers: [GraphTraversalService],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   question: string = '';
   isFinal: boolean = false;
 
