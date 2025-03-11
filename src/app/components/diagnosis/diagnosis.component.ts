@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GraphTraversalService } from '../../services/graph-traversal.service';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-diagnosis',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CardComponent],
   templateUrl: './diagnosis.component.html',
   styleUrl: './diagnosis.component.scss'
 })
